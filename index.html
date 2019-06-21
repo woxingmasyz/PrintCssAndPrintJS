@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>打印demo</title>
+		<!--<link rel="stylesheet" href="css/printstylesheet.css" media="print" />-->
+		<link rel="stylesheet" href="css/pringStyle.css" media="print" />
+		<link rel="stylesheet" href="css/pringStyle.css" media="screen" />
+		<!-- jQuery -->
+		<script src="js/jquery/jquery.min.js"></script>
+		<!-- jQuery.print -->
+		<script src="js/jQuery.print.js"></script>
+	</head>
+
+	<body>
+		<div id="ele2">
+			<h3>采购入库单</h3>
+			<h5>江西通药集採医药有限公司</h5>
+			<div class="data">
+				<div>
+					<p>供货单位:<span>安徽金贝冠药业有限公司</span></p>
+					<p>到货日期:<span></span></p>
+				</div>
+				<div>
+					<p>发货地址:<span></span></p>
+					<p>入库日期:<span></span></p>
+				</div>
+			</div>
+			<table width="100%" cellspacing="0" cellpadding="0">
+				<thead>
+					<tr>
+						<th>入库单号</th>
+						<th>通用名称</th>
+						<th>剂型</th>
+						<th>规格</th>
+						<th>批号</th>
+						<th>生产日期/有效期至</th>
+						<th>生产厂商/产地</th>
+						<th>单 位</th>
+						<th>入库数量</th>
+						<th>单价</th>
+						<th>金额</th>
+						<th>验收结果</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr>
+						<td>RK2019032600009</td>
+						<td>五谷燕麦蛋白质粉</td>
+						<td></td>
+						<td>900g/桶×12桶/件</td>
+						<td>20181228</td>
+						<td>2020/12/27 0:00:00</td>
+						<td>安徽金贝冠药业有限公司</td>
+						<td>桶</td>
+						<td>1200</td>
+						<td>14.00</td>
+						<td>16800.00</td>
+						<td>合格</td>
+					</tr>
+
+					<tr>
+						<td>RK2019032600019</td>
+						<td>铁+VC营养包</td>
+						<td></td>
+						<td>2g/袋×30袋/桶*30桶/件</td>
+						<td>20181228</td>
+						<td>2020/6/27 0:00:00</td>
+						<td>安徽金贝冠药业有限公司</td>
+						<td>桶</td>
+						<td>3000</td>
+						<td>8.50</td>
+						<td>25500.00</td>
+						<td>合格</td>
+					</tr>
+
+					<tr>
+						<td>RK2019032600011</td>
+						<td>乳清蛋白质粉</td>
+						<td></td>
+						<td>900g/桶×12桶/件</td>
+						<td>20181228</td>
+						<td>2020/12/27 0:00:00</td>
+						<td>安徽金贝冠药业有限公司</td>
+						<td>桶</td>
+						<td>1200</td>
+						<td>14.00</td>
+						<td>16800.00</td>
+						<td>合格</td>
+					</tr>
+
+					<tr>
+						<td>RK2019032600021</td>
+						<td>酪蛋白多维肽营养包</td>
+						<td></td>
+						<td>2g/袋×30袋/桶*30桶/件</td>
+						<td>20181228</td>
+						<td>2020/6/27 0:00:00</td>
+						<td>安徽金贝冠药业有限公司</td>
+						<td>桶</td>
+						<td>3000</td>
+						<td>8.50</td>
+						<td>25500.00</td>
+						<td>合格</td>
+					</tr>
+
+					<tr>
+						<td>RK2019032600018</td>
+						<td>复合氨基酸蛋白质粉</td>
+						<td></td>
+						<td>900g/桶×12桶/件</td>
+						<td>20181228</td>
+						<td>2020/12/27 0:00:00</td>
+						<td>安徽金贝冠药业有限公司</td>
+						<td>桶</td>
+						<td>1200</td>
+						<td>14.00</td>
+						<td>16800.00</td>
+						<td>合格</td>
+					</tr>
+
+					<tr>
+						<td colspan="2">合计金额（大写）</td>
+						<td colspan="5"></td>
+						<td colspan="2">合计金额（小写）：</td>
+						<td colspan="3"></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="people">
+				<div><span>开票员：(取值为采购内勤）： </span><label></label></div>
+				<div><span>库管员： </span><label></label></div>
+				<div><span>验收员： </span><label></label></div>
+			</div>
+			<div class="z">
+				<div><span>单位签名（章）： </span><label></label></div>
+				<div><span>注：一式四联 第一联：存根 第二联：质量部 第三联：采购 第四联：记账 </span><label></label></div>
+			</div>
+			<div class="fgf"></div>
+		</div>
+        <button id="testPrint" class="print-link no-print" onclick="jQuery('#ele2').print()">
+            打印这个元素的内容 (jQuery('#ele1').print())
+        </button>
+	</body>
+</html>

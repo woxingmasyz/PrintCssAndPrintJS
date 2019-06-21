@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>打印demo</title>
+		<!--<link rel="stylesheet" href="css/printstylesheet.css" media="print" />-->
+		<link rel="stylesheet" href="css/pringStyle.css" media="print" />
+		<link rel="stylesheet" href="css/pringStyle.css" media="screen" />
+		<!-- jQuery -->
+		<script src="js/jquery/jquery.min.js"></script>
+		<!-- jQuery.print -->
+		<script src="js/jQuery.print.js"></script>
+    </head>
+    <body>
+        <script type="text/javascript" language="javascript">
+         $("#print").on("click", function () {
+                var rows = grid.datagrid('getSelections');
+                if (rows.length > 0) {
+                    var erroinfo = false;
+                    var Codes = new Array();
+                    var rkdlx = new Array();
+                    $.each(rows, function (index, value) {
+                        if (Codes.length > 0 && $.inArray(this.dwbm, Codes) == -1) {
+                            erroinfo = true;
+                        }
+                        else {
+                            Codes.push(this.dwbm);
+                        }
+                        if (rkdlx.length > 0 && $.inArray(this.rkdlx, rkdlx) == -1) {
+                            erroinfo = true;
+                        }
+                        else {
+                            rkdlx.push(this.rkdlx);
+                        }
+                    });
+                    if (erroinfo) {
+                        $.messager.alert("提示", "请选择相同的供货单位以及相同的验收类型！");
+                        erroinfo = false;
+                    }
+                    else {
+                        var id = "";
+                        $.each(rows, function (index, value) {
+                            id += "'"+this.ID+"'"+",";
+                        });
+                        id = "(" + id.substring(id.lastIndexOf('/') + 1, id.lastIndexOf(',')) + ")";
+                        var data = { 'id': id };
+                        $.ajax({
+                            type: "POST", //要用post方式                
+                            url: "rklist.aspx/GetPrintData",//方法所在页面和方法名
+                            data: JSON.stringify(data),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (data) {
+                                var content = template("data-item-template", data);                               
+                                jQuery("#ele1").print({
+                                    //Use Global styles--全局样式
+                                    globalStyles : false,
+                                    //Add link with attrbute media=print--是否使用带media=print的css
+                                    mediaPrint : true,
+                                    //Custom stylesheet
+                                    //stylesheet : "http://fonts.googleapis.com/css?family=Inconsolata", --引用本地样式
+                                    stylesheet:"css/printstylesheet.css",
+                                    //Print in a hidden iframe--是启用ifram 本页或新开一页打印
+                                    iframe : false,
+                                    //Don't print this ---不打印区域
+                                    noPrintSelector : ".avoid-this",
+                                    //Add this at top ---打印区域 提前加载 与之相反的是 追加属性 append 预览完成后在追加标签
+                                    prepend: content,
+                                    //append
+                                    //Add this on bottom
+                                    //append : "<br/>Buh Bye!",
+                                    deferred: $.Deferred().done(function () { console.log('Printing done', arguments); })
+                                })
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }
+                else {
+                    $.messager.alert("提示", "至少选择一条数据进行打印！");
+                }
+            });
+        </script>
+        <script type="text/template" id="data-item-template">
+            {{each d as value i}}
+                <div id="ele2">
+                    <h3>采购入库单</h3>
+                    <h5>江西通药集採医药有限公司</h5>
+                    <div class="data">
+                        <div>
+                            <p>供货单位:<span>{{value.SingleSupplier}}</span></p>
+                            <p>到货日期:<span>{{value.DateofArrival}}</span></p>
+                        </div>
+                        <div>
+                            <p>发货地址:<span>{{value.ShippingAddress}}</span></p>
+                            <p>入库日期:<span>{{value.DateofStorage}}</span></p>
+                        </div>
+                    </div>
+                    <table width="100%" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr>
+                                <th>入库单号</th>
+                                <th>通用名称</th>
+                                <th>剂型</th>
+                                <th>规格</th>
+                                <th>批号</th>
+                                <th>生产日期/有效期至</th>
+                                <th>生产厂商/产地</th>
+                                <th>单 位</th>
+                                <th>入库数量</th>
+                                <th>单价</th>
+                                <th>金额</th>
+                                <th>验收结果</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{each value.WarehouseReceiptDetailInfo as item}}
+                                <tr>
+                                    <td>{{item.WarehousingBillNumber}}</td>
+                                    <td>{{item.GeneralName}}</td>
+                                    <td>{{item.DosageForm}}</td>
+                                    <td>{{item.Specifications}}</td>
+                                    <td>{{item.BatchNumber}}</td>
+                                    <td>{{item.ValidUntil}}</td>
+                                    <td>{{item.Manufacturer}}</td>
+                                    <td>{{item.Company}}</td>
+                                    <td>{{item.InputQuantity}}</td>
+                                    <td>{{item.UnitPrice}}</td>
+                                    <td>{{item.AmountofMoney}}</td>
+                                    <td>{{item.AcceptanceResults}}</td>
+                                </tr>
+                            {{/each}}
+                        <tr>
+                            <td colspan="2">合计金额（大写）</td>
+                            <td colspan="5"></td>
+                            <td colspan="2">合计金额（小写）：</td>
+                            <td colspan="3"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="people">
+                        <div><span>开票员：(取值为采购内勤）： </span>
+                            <label></label>
+                        </div>
+                        <div><span>库管员： </span>
+                            <label></label>
+                        </div>
+                        <div><span>验收员： </span>
+                            <label></label>
+                        </div>
+                    </div>
+                    <div class="z">
+                        <div><span>单位签名（章）： </span>
+                            <label></label>
+                        </div>
+                        <div><span>注：一式四联 第一联：存根 第二联：质量部 第三联：采购 第四联：记账 </span>
+                            <label></label>
+                        </div>
+                    </div>
+                    <div class="pageNext"></div>
+                </div>
+                {{/each}}
+            </script>
+    </body>
+</html>
