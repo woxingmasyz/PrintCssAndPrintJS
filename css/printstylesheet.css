@@ -1,0 +1,16 @@
+@media print {
+    @page {
+       /*A4: 210mm × 297mm*/
+       size:24cm 14cm;  /* or size: A4;  or size: 794px 1123px; */
+      }
+    
+  }
+  @media print {
+    .fgf {page-break-after: always;}
+    /* p {page-break-inside: avoid;} */
+  }
+  /* @media print {
+    p {orphans:3; widows:2;}
+  } */
+
+ /* table { width: 100%; min-height: 25px; line-height: 25px; text-align: center; border-collapse: collapse;} */

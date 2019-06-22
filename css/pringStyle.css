@@ -1,0 +1,74 @@
+@media print {
+	@page {
+		size: 24cm 14cm;
+		margin: -1.5cm 1cm 0;
+		;
+	}
+}
+
+.body {
+	font-family: "微软雅黑";
+	font-size: 14px;
+}
+
+#ele2 h3,
+#ele2 h5 {
+	text-align: center;
+}
+
+.data {
+	width: 100%;
+}
+
+.data div {
+	display: flex;
+	justify-content: space-between;
+}
+
+.data div p {
+	margin-top: 0;
+	margin-bottom: 0.3cm;
+}
+
+.data div p:last-of-type {
+	margin-right: 3.5cm;
+}
+
+table {
+	border: 1px solid #666;
+	border-top: 0;
+	border-left: 0;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+table td,
+th {
+	border: 1px solid #666;
+	border-right: 0;
+	border-bottom: 0;
+	padding: 0 5px;
+	box-sizing: border-box;
+	font-size: 10px;
+}
+
+table tr td:first-of-type {
+	width: 1cm;
+}
+
+table th {
+	font-weight: normal;
+	font-size: 14px;
+}
+
+.people {
+	display: flex;
+	justify-content: space-between;
+	padding-right: 3.5cm;
+	margin: 0.3cm 0;
+}
+
+.z {
+	display: flex;
+	justify-content: space-between;
+}
